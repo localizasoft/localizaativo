@@ -1,0 +1,16 @@
+model Item {
+    id                  String   @id @default(uuid())
+    plaqueta            String
+    sequencial_localiza String
+    andar               String
+    localizacao         String
+    descricao           String
+    lido                String
+    data_inclusao       DateTime @default(now())
+    tipo                String
+    foto_url            String?
+    dono                String
+    codigo_de_barras    String
+
+    @@map("item")
+}

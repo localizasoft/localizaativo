@@ -1,0 +1,8 @@
+model RegisterUserCode {
+    id          String   @id @default(uuid())
+    email       String
+    hashed_code String
+    created_at  DateTime @default(now())
+
+    @@map("register_user_code")
+}
