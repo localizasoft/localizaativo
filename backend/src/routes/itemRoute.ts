@@ -5,6 +5,7 @@ import { GetItemByIdController } from "../controllers/itemController/getItemById
 import { PhotoController } from "../controllers/itemController/photoAddController";
 import { PostController } from "../controllers/itemController/postController";
 import { PutController } from "../controllers/itemController/putController";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticate";
 
 const itemRoute = Router()
 
@@ -15,13 +16,13 @@ const postItem = new PostController()
 const putItem = new PutController()
 const photoController = new PhotoController()
 
-itemRoute.get("/api/item/getall", getAllItems.handle)
-itemRoute.get("/api/item/getById/:id", getItemById.handle)
+itemRoute.get("/api/item/getall", ensureAuthenticated, getAllItems.handle)
+itemRoute.get("/api/item/getById/:id", ensureAuthenticated, getItemById.handle)
 
-itemRoute.delete("/api/item/delete/:id", deleteItem.handle)
+itemRoute.delete("/api/item/delete/:id", ensureAuthenticated, deleteItem.handle)
 
-itemRoute.post("/api/item/post", postItem.handle)
+itemRoute.post("/api/item/post", ensureAuthenticated, postItem.handle)
 
-itemRoute.put("/api/item/put/:id", putItem.handle)
-itemRoute.put("/api/item/addPhoto/:id", photoController.handle)
+itemRoute.put("/api/item/put/:id", ensureAuthenticated, putItem.handle)
+itemRoute.put("/api/item/addPhoto/:id", ensureAuthenticated, photoController.handle)
 export { itemRoute }
