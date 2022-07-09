@@ -31,23 +31,28 @@ export class Delete {
                 Key: `${itemId}.${objectExtensionSplit[5]}`
             }
             const deleteData = await this.s3.getInstance().deleteObject(deleteParams, function(err: any, data: any) {
-                if (err) throw err
+                if (err) {
+                    return {
+                        error: true,
+                        data: deleteData,
+                        message: "Erro ao deletar."
+                    }
+                }
                 return{     // deleted
                     error: false,
-                    data: data,
+                    data: [],
                     message: "Foto deletada com sucesso."
                 }
             });
-            
-              return {
+            return{     // deleted
                 error: false,
-                data: deleteData,
+                data: [],
                 message: "Foto deletada com sucesso."
             }
         } catch (e) {
             return {
                 error: true,
-                data: [],
+                data: e,
                 message: "Erro interno de servidor, contate o suporte."
             }
         }
