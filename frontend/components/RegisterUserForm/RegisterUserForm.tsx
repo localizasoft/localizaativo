@@ -114,7 +114,8 @@ const RegisterUserForm = () => {
                 ) : (
                     <Button
                         id="registerButton"
-                        className='w-20' type="submit"
+                        className='w-36'
+                        type="submit"
                         onClick={handleSteps}
                     >
                         {actualStep === 3 ? 'Ir para login' : "Avançar"}

@@ -13,7 +13,7 @@ export default function Button({ children, className, type, onClick, id }: Butto
         <button
             id={id}
             type={type}
-            className={`w-full h-9 bg-cyan-600 rounded-md text-white shadow-sm px-3 py-2 text-sm flex items-center justify-center gap-2 hover:opacity-80 duration-200 ${className}`}
+            className={`w-full h-9 bg-cyan-600 rounded-md text-white shadow-sm px-3 py-2 text-sm flex items-center justify-center gap-2 hover:opacity-80 duration-200 ` + className}
             onClick={onClick}
         >
             {children}
