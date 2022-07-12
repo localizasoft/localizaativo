@@ -35,7 +35,7 @@ export class HandleUser implements IHandleUser {
                 email
             }
         })
-
+        
         return user;
     }
 

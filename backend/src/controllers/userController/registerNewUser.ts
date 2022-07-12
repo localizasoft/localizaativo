@@ -11,22 +11,22 @@ import { GenerateCode } from '../../services/generateCode'
 import { HandleUserCode } from '../../useCases/user_code/Handle'
 
 export class RegisterNewUser {
-    private handleUser: HandleUser = new HandleUser()
-    private handleCode: HandleUserCode = new HandleUserCode()
-
     async sendCode(req: Request, res: Response) {
         try {
             const { email } = req.body
+            
+            const handleUser = new HandleUser()
+            const handleCode = new HandleUserCode()
 
-            const user = await this.handleUser.verifyIfAlreadyExist(email)
-
+            const user = await handleUser.verifyIfAlreadyExist(email)
+            
             if (user) {
                 return res.status(406).json({
                     error: true,
                     message: "Email já registrado"
                 })
             }
-
+            
             const validation = new Validations()
             const emailService = new SendEmailService()
             const cryptograph = new PasswordHash()
@@ -38,15 +38,15 @@ export class RegisterNewUser {
             })
 
             const code = await GenerateCode()
-
+            
             const emailInfo = await emailService.sendCode(email, code);
-
-            await this.handleCode.deleteRegisterCodes(email)
+            
+            await handleCode.deleteRegisterCodes(email)
 
             if (!emailInfo.error) {
                 const cryptographedCode = await cryptograph.createHash(code)
 
-                const bd_code = await this.handleCode.registerUserCode(email, cryptographedCode)
+                const bd_code = await handleCode.registerUserCode(email, cryptographedCode)
 
                 return res.status(200).json({
                     error: false,
@@ -71,9 +71,11 @@ export class RegisterNewUser {
 
     async codeVerify(req: Request, res: Response) {
         try {
+            const handleCode = new HandleUserCode()
+
             const { code, email } = req.body
 
-            const codeValidation = await this.handleCode.verifyCode(email, code)
+            const codeValidation = await handleCode.verifyCode(email, code)
 
             if (codeValidation.valid) {
                 return res.status(200).json({
@@ -104,13 +106,15 @@ export class RegisterNewUser {
 
     async create(req: Request, res: Response) {
         try {
+            const handleUser = new HandleUser()
+
             const { email, password, confirmPassword } = req.body
             const validations = new Validations()
             const cryptograph = new PasswordHash()
             const password_hash = await cryptograph.createHash(password)
             const cannotBeCreated = await validations.validateUser(email, password, confirmPassword)
 
-            const verifyIfAlreadyExist = await this.handleUser.verifyIfAlreadyExist(email)
+            const verifyIfAlreadyExist = await handleUser.verifyIfAlreadyExist(email)
 
             if (verifyIfAlreadyExist) {
                 return res.status(406).json({
