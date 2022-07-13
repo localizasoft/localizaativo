@@ -4,7 +4,7 @@ import { parseCookies } from 'nookies';
 const { 'LocalizaAtivo-token': savedToken } = parseCookies()
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: 'https://backend-localiza-soft.herokuapp.com/api',
   headers: {
     'Authorization': savedToken ? "" : `Bearer ${savedToken}`
   }
