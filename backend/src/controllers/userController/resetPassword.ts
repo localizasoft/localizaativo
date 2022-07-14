@@ -40,34 +40,42 @@ export class ResetPassword {
 
             //Gerando código aleatório
             const code = await Math.random().toString(36).substring(2, 6).toUpperCase();
-            
+
             //Criptografando código
             const cryptographedCode = await cryptograph.createHash(code)
 
             //Enviando código via email
             const infoEmail = await sendEmail.sendResetPassword(email, code)
 
-            //Deletando códigos já existentes
-            const deleteCode = await prismaClient.resetPasswordCode.deleteMany({
-                where: {
-                    email
-                }
-            })
+            if (!infoEmail.error) {
+                //Deletando códigos já existentes
+                const deleteCode = await prismaClient.resetPasswordCode.deleteMany({
+                    where: {
+                        email
+                    }
+                })
 
-            //Salvando código no bd
-            const savedHashedCode = await prismaClient.resetPasswordCode.create({
-                data: {
-                    email,
-                    hashed_code: cryptographedCode
-                }
-            })
+                //Salvando código no bd
+                const savedHashedCode = await prismaClient.resetPasswordCode.create({
+                    data: {
+                        email,
+                        hashed_code: cryptographedCode
+                    }
+                })
 
-            return res.status(200).json({
-                error: false,
-                message: "Email enviado.",
-                data: infoEmail,
-                hashed_code: savedHashedCode
-            })
+                return res.status(200).json({
+                    error: false,
+                    message: "Email enviado.",
+                    data: infoEmail,
+                    hashed_code: savedHashedCode
+                })
+            } else {
+                return res.status(500).json({
+                    error: true,
+                    message: "Erro interno de servidor, favor contate o suporte.",
+                    data: infoEmail
+                });
+            }
         } catch (e) {
             return res.status(500).json({
                 error: true,

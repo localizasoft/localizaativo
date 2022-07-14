@@ -24,7 +24,7 @@ export const useCreateNewUser = () => {
                 .then((res: AxiosResponse) => {
                     setFetchingCreateUser(false)
                     api.defaults.headers.common['Authorization'] = `Bearer ${res.data.message}`
-                    api.defaults.headers['Authorization'] = `Bearer ${res.data.message}`
+                    //api.defaults.headers['Authorization'] = `Bearer ${res.data.message}`
                     setStep(2)
                 })
                 .catch((e) => {

@@ -40,13 +40,13 @@ export class SendEmailService {
 
             return ({
                 error: false,
-                message: "Message sent.",
+                message: "Mensagem enviada.",
                 data: info
             })
         } catch (e) {
             return ({
                 error: true,
-                message: "Message don't send",
+                message: "Mensagem não enviada, contate o suporte.",
                 data: e
             })
         }
