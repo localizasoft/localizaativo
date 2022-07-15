@@ -4,7 +4,6 @@ import { prismaClient } from '../../../prisma/prismaClient'
 import { PasswordHash } from '../../services/passwordHash'
 import { SendEmailService } from '../../services/sendEmailRegisterUser'
 import { Validations } from '../../services/validations'
-import { env } from 'process'
 import { Prisma } from '@prisma/client'
 import { HandleUser } from '../../useCases/user/Handle'
 import { GenerateCode } from '../../services/generateCode'
@@ -50,7 +49,7 @@ export class RegisterNewUser {
 
                 return res.status(200).json({
                     error: false,
-                    message: "Email enviado.",
+                    message: emailInfo.message,
                     data: emailInfo.data
                 })
             } else {
