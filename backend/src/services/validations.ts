@@ -55,7 +55,7 @@ export class Validations {
 
         if(!passwordIsValid) return {
             error: true,
-            message: "Senha inválida, deve have 1 letra minúscula, 1 maiúscula, 1 número e 1 caractere especial."
+            message: "Senha inválida, deve haver 1 letra minúscula, 1 maiúscula, 1 número e 1 caractere especial."
         }
 
         return {
