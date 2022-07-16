@@ -9,7 +9,7 @@ type DownloadResponse = {
 
 export class Download {
     private s3 = new S3Instance()
-    async execute(id: string){
+    async execute(id: string): Promise<DownloadResponse>{
         try {
             const item = await prismaClient.item.findFirst({
                 where: {

@@ -6,12 +6,12 @@ export class UploadController {
     async handle(req: Request, res: Response) {
         const responses = new Responses()
         try {
-            //@ts-ignore
             const file = req.file
             const { id } = req.params
 
             const upload = new Upload()
 
+            if(!file) return responses.ParamsError(res, "Arquivo vazio ou não identificado.")
             const uploadData = await upload.execute(file, id);
 
             if (uploadData.error) return responses.ParamsError(res, uploadData.message);

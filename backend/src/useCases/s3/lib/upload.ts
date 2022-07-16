@@ -12,7 +12,7 @@ type UploadResponse = {
 export class Upload {
     private s3 = new S3Instance();
     
-    async execute(file: File, itemId: string): Promise<UploadResponse> {
+    async execute(file: Express.Multer.File, itemId: string): Promise<UploadResponse> {
         try {
             
             const item = await prismaClient.item.findFirst({
@@ -31,7 +31,7 @@ export class Upload {
             const fileStream = fs.createReadStream(file.path)
             //@ts-ignore
             const splitedString = file.originalname.split('.')
-            const extensionValidate = splitedString[1].toLowerCase() !== 'jpg' && splitedString[1].toLowerCase() !== '.png'
+            const extensionValidate = splitedString[splitedString.length - 1].toLowerCase() !== 'jpg' && splitedString[1].toLowerCase() !== '.png'
             if (extensionValidate) {
                 return {
                     error: true,
@@ -42,7 +42,7 @@ export class Upload {
             const uploadParams = {
                 Bucket: `${process.env.AWS_BUCKET_NAME}`,
                 Body: fileStream,
-                Key: `${itemId}.${splitedString[1].toString()}`
+                Key: `${itemId}.${splitedString[splitedString.length - 1].toString()}`
             }
     
             const uploadResponse = await this.s3.getInstance().upload(uploadParams).promise()

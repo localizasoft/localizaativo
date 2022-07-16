@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 import { prismaClient } from "../../../prisma/prismaClient";
-import { PasswordHash } from "../../services/passwordHash";
-import { Validations } from "../../services/validations";
+import { PasswordHash } from "../../providers/passwordHash";
+import { Validations } from "../../providers/validations";
 import { IHandleUser } from "./IHandleUser";
 
 export class HandleUser implements IHandleUser {

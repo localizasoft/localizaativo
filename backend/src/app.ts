@@ -1,3 +1,4 @@
+import { chargeDataBaseRouter } from "./routes/chargeDataBase"
 import { itemRoute } from "./routes/itemRoute"
 import { S3Router } from "./routes/s3Router"
 import { userRoute } from "./routes/userRoute"
@@ -19,5 +20,6 @@ app.use(express.json())
 app.use(userRoute)
 app.use(itemRoute)
 app.use(S3Router)
+app.use(chargeDataBaseRouter)
 
 export { app }

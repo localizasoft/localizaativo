@@ -1,7 +1,7 @@
 //Controller to validate email and password to authenticate and return a jwt token
 import { Request, Response } from 'express'
 import { prismaClient } from '../../../prisma/prismaClient'
-import { PasswordHash } from '../../services/passwordHash'
+import { PasswordHash } from '../../providers/passwordHash'
 import { sign } from 'jsonwebtoken'
 import { env } from "process";
 import { Prisma } from '@prisma/client';

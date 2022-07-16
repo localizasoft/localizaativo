@@ -2,7 +2,7 @@ import { RegisterUserCode } from "@prisma/client";
 import { sign } from "jsonwebtoken";
 import { env } from "process";
 import { prismaClient } from "../../../prisma/prismaClient";
-import { PasswordHash } from "../../services/passwordHash";
+import { PasswordHash } from "../../providers/passwordHash";
 import { IHandleUser } from "../user/IHandleUser";
 import { IHandleUserCode } from "./IHandleUserCode";
 

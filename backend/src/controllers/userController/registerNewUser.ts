@@ -1,12 +1,12 @@
 import { sign } from 'jsonwebtoken'
 import { Request, Response } from 'express'
 import { prismaClient } from '../../../prisma/prismaClient'
-import { PasswordHash } from '../../services/passwordHash'
-import { SendEmailService } from '../../services/sendEmailRegisterUser'
-import { Validations } from '../../services/validations'
+import { PasswordHash } from '../../providers/passwordHash'
+import { SendEmailService } from '../../providers/sendEmailRegisterUser'
+import { Validations } from '../../providers/validations'
 import { Prisma } from '@prisma/client'
 import { HandleUser } from '../../useCases/user/Handle'
-import { GenerateCode } from '../../services/generateCode'
+import { GenerateCode } from '../../providers/generateCode'
 import { HandleUserCode } from '../../useCases/user_code/Handle'
 
 export class RegisterNewUser {

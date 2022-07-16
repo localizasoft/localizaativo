@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 import { prismaClient } from '../../../prisma/prismaClient'
-import { PasswordHash } from '../../services/passwordHash'
-import { SendEmailService } from '../../services/sendEmailResetPassword'
-import { Validations } from '../../services/validations'
+import { PasswordHash } from '../../providers/passwordHash'
+import { SendEmailService } from '../../providers/sendEmailResetPassword'
+import { Validations } from '../../providers/validations'
 import { sign } from 'jsonwebtoken'
 import { env } from "process";
 import { Prisma } from '@prisma/client'
