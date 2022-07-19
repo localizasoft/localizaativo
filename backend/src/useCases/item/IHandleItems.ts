@@ -1,4 +1,4 @@
-import { Item } from "@prisma/client";
+import { Item } from "../../entities/Classes/Item"
 
 export type PutResponse = {
     error: boolean,

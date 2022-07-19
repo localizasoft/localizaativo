@@ -1,6 +1,5 @@
 //Find unique user by id
 import { Request, Response } from 'express'
-import { prismaClient } from '../../../prisma/prismaClient'
 import { HandleUser } from '../../useCases/user/Handle'
 
 export class GetUserById {

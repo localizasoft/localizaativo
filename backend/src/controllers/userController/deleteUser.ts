@@ -1,7 +1,6 @@
 //Controller to delete user
 import { Prisma } from '@prisma/client';
 import { Request, Response } from 'express'
-import { prismaClient } from '../../../prisma/prismaClient'
 import { HandleUser } from '../../useCases/user/Handle';
 
 export class DeleteUser {

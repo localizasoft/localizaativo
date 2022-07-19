@@ -1,14 +1,20 @@
-import { User } from "@prisma/client";
 import { prismaClient } from "../../../prisma/prismaClient";
+import { User } from "../../entities/Classes/User";
 import { PasswordHash } from "../../providers/passwordHash";
 import { Validations } from "../../providers/validations";
 import { IHandleUser } from "./IHandleUser";
 
 export class HandleUser implements IHandleUser {
     async getUsers() {
-        const usersList = await prismaClient.user.findMany()
+        const userList: User[] = []
+
+        const usersDatabase = await prismaClient.user.findMany()
     
-        return usersList;
+        usersDatabase.forEach(element => {
+            userList.push(element as User)
+        });
+
+        return userList;
     }
 
     async deleteUser(id: string) {
@@ -30,12 +36,14 @@ export class HandleUser implements IHandleUser {
     }
 
     async verifyIfAlreadyExist(email: string) {
-        const user = await prismaClient.user.findFirst({
+        const userDatabase = await prismaClient.user.findFirst({
             where: {
                 email
             }
         })
         
+        const user = new User(userDatabase as User)
+
         return user;
     }
 
@@ -74,10 +82,12 @@ export class HandleUser implements IHandleUser {
             }
         })
 
+        const newUser = new User(createdUser as User)
+
         return {
             error: false,
             message: "Usuário criado com sucesso.",
-            data: createdUser,
+            data: newUser,
             code: 200
         }
     }
@@ -89,7 +99,7 @@ export class HandleUser implements IHandleUser {
         const fieldsValidation = await validations.userFieldsValidation(email, 'password')
 
         if(emailIsValid && fieldsValidation){
-            const updatedUser = await prismaClient.user.update({
+            const updatedUserDatabase = await prismaClient.user.update({
                 where: {
                     id
                 },
@@ -97,6 +107,8 @@ export class HandleUser implements IHandleUser {
                     email
                 }
             })
+
+            const updatedUser = new User(updatedUserDatabase as User)
 
             return {
                 error: false,

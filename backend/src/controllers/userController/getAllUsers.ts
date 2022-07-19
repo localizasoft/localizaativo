@@ -1,6 +1,5 @@
 //Controller to get all user's
 import { Request, Response } from 'express'
-import { prismaClient } from '../../../prisma/prismaClient'
 import { HandleUser } from '../../useCases/user/Handle'
 
 export class GetAllUsers {

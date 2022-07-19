@@ -1,12 +1,18 @@
-import { Item } from "@prisma/client";
 import { prismaClient } from "../../../prisma/prismaClient";
+import { Item } from "../../entities/Classes/Item";
 import { IHandleItems, PutResponse } from "./IHandleItems";
 
 export class HandleItem implements IHandleItems {
     async getAll(): Promise<Item[]> {
-        const list = await prismaClient.item.findMany()
+        let itemList: Item[] = []
 
-        return list;
+        const itemsDb = await prismaClient.item.findMany()
+
+        itemsDb.forEach(element => {
+            itemList.push(element as Item)
+        });
+
+        return itemList;
     }
     async delete(id: string): Promise<void> {
         await prismaClient.item.delete({
@@ -22,7 +28,11 @@ export class HandleItem implements IHandleItems {
             }
         })
 
-        return item
+        if (!item) return null
+
+        const itemClass = new Item(item as Item)
+
+        return itemClass
     }
 
     async post(sequencial_localiza: string, codigo_de_barras: string, plaqueta: string, andar: string, localizacao: string, descricao: string, dono: string, lido: string, tipo: string) {
@@ -40,7 +50,7 @@ export class HandleItem implements IHandleItems {
             }
         })
 
-        return item;
+        return item as Item;
     }
 
     async put(id: string, sequencial_localiza: string, codigo_de_barras: string, plaqueta: string, andar: string, localizacao: string, descricao: string, dono: string, lido: string, tipo: string): Promise<PutResponse> {
@@ -77,7 +87,7 @@ export class HandleItem implements IHandleItems {
 
         return {
             error: false,
-            data: updatedItem
+            data: updatedItem as Item
         }
     }
 
@@ -107,7 +117,7 @@ export class HandleItem implements IHandleItems {
 
         return {
             error: false,
-            data: updatedItem
+            data: updatedItem as Item
         }
     }
 }

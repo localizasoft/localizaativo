@@ -1,4 +1,3 @@
-import { sign } from 'jsonwebtoken'
 import { Request, Response } from 'express'
 import { prismaClient } from '../../../prisma/prismaClient'
 import { PasswordHash } from '../../providers/passwordHash'

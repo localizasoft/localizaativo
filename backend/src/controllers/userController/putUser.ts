@@ -1,8 +1,6 @@
 //Controller to update/change a user
 import { Prisma } from '@prisma/client'
 import { Request, Response } from 'express'
-import { prismaClient } from '../../../prisma/prismaClient'
-import { Validations } from '../../providers/validations'
 import { HandleUser } from '../../useCases/user/Handle'
 
 export class PutUser {
