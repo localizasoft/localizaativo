@@ -14,10 +14,10 @@ export class DeleteController {
             const dataS3delete = await s3Delete.execute(id)
             if(!dataS3delete.error){
                 await handleItem.delete(id as string);
-                return responses.res200(res, null, "Item deletado com sucesso.");
+                return responses.res200(res, [], "Item deletado com sucesso.");
             } else {
                 await handleItem.delete(id as string);
-                return responses.InternalError(res, "Erro ao deletar foto do s3.")
+                return responses.res200(res, [], "Item deletado, contudo houve um erro ao deletar a imagem vinculada.")
             }
         } catch (e) {
             if (e instanceof Prisma.PrismaClientKnownRequestError) {

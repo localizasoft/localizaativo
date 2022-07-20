@@ -17,13 +17,11 @@ export class Delete {
                     id: itemId
                 }
             })
-
             if(!item) return {
                 error: true,
                 data: [],
                 message: "Nenhum item foi encontrado com esse ID."
             }
-
             const objectExtensionSplit = item.foto_url?.split('.');
             if(!objectExtensionSplit) throw new Error()
             var deleteParams = {
